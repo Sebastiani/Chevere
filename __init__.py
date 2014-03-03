@@ -11,7 +11,7 @@ app.config.from_object('config')
 app.config.update(DEBUG = True)
 db = SQLAlchemy(app)
 
-from app import views, models
+from Chevere import views, models
 #----------------------------------------
 # controllers
 #----------------------------------------
