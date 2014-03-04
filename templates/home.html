@@ -1,21 +1,7 @@
 <!DOCTYPE html>
 
-<link rel="stylesheet" type="text/css" href="nav.css" media="screen" />
-<nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      
-      <li><a href="/search">Search</a>
-        
-      <li><a href="/profile">Profile</a>
-      </li>         
-      <li><a href="/roulette">Roulette!</a>
-        <ul>
-            <li><a href="/email">Via Email</a></li>
-        </ul>
-      </li>
-    </ul>
-</nav>
+{% extends "nav.html" %}
+{% block content %}
 
 <html>
 
@@ -24,13 +10,15 @@
 	<link 
 		rel ="shortcut icon"
 		type = "image/ico"
-		href = "img/favicon.ico">
+		href = "/static/img/chevere.ico">
 
 </head>
 
 
 <body> 
-
+   
 </body>
 
 </html>
+
+{% endblock %}

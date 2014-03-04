@@ -1,11 +1,11 @@
-<link rel="stylesheet" type="text/css" href="test.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/nav.css" media="screen" />
 <nav>
     <ul>
       <li><a href="/">Home</a></li>
       
       <li><a href="/search">Search</a>
         
-      <li><<a href="/profile">Profile</a>
+      <li><a href="/profile">{{user.name}} {{user.lastname}}</a>
       </li>         
       <li><a href="/roulette">Roulette!</a>
         <ul>
@@ -14,3 +14,19 @@
       </li>
     </ul>
 </nav>
+
+<body>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+	
+</body>
+
+{% block content %} {% endblock %}
