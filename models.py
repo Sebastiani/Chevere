@@ -15,3 +15,20 @@ class User(db.Model):
 
 	def __repr__(self):
 		return '<User %r>' % (self.name)
+		
+class Restaurant(db.Model):
+	
+	id = db.Column(db.Integer, primary_key = True)
+	name =  db.Column(db.String(120), index = True, unique = True)
+	hours =  db.Column(db.String(20), index = True, unique = True)
+	location = db.Column(db.String(120), index = True, unique = True)
+	price_rng = db.Column(db.String(5), index = True, unique = True)
+	#ratings feed, can I add a dictionary or array of feeds to the db?
+	#reviews
+	#profile image
+	phone = db.Column(db.Integer, index =  True, unique = True)
+	#parking: yes or no
+	#credit card: yes or no
+	#Bar/Alcohol: yes or no
+	#ambience: familiar, casual, fine dining, buffet, fast casual, cafe, franchise, food truck, catering, ethnic
+	#attire: casual, fancy, gimmick
