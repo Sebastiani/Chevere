@@ -14,6 +14,7 @@ db = SQLAlchemy(app)
 
 lm = LoginManager()
 lm.init_app(app)
+lm.login_view = 'login'
 oid = OpenID(app, os.path.join(basedir, 'tmp') #uses basedir from config.py, don't know if its functional
 from Chevere import views, models
 
