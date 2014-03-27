@@ -37,7 +37,90 @@ def after_login(resp):    #resp is the response sent by the oid.try_login
 		flash('Invalid login. Please try again.')
 		return redirect(url_for('login'))
 	user = User.query.filter_by(email = resp.email).first()
-	if user is None:
+	if user is None:1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+from flask import render_template, flash, redirect, session, url_for, request, g
+from flask.ext.login import login_user, logout_user, current_user, login_required
+from Chevere import app, db, lm, oid
+from forms import LoginForm
+from models import User, ROLE_USER, ROLE_ADMIN
+user =  {'name': 'Sebastiani', 'lastname':'Aguirre'}
+@app.route('/home')
+def index():
+        return render_template("home.html", user=user)
+@app.route('/signin', methods = ['POST']
+def signin():
+        #here goes the make account function, based on the login below.
+        
+@app.route('/')
+@app.route('/login', methods=['GET', 'POST'])
+@oid.loginhandler
+def login():
+        if g.user is not None and g.user.is_authenticated():
+                return redirect(url_for('index'))
+                
+        form = LoginForm()
+        if form.validate_on_submit():
+                session['remember_me'] =  form.remember_me.data
+                return oid.try_login(form.openid.data, ask_for = ['name', 'email']) #if successful, it will asynchronously call @after_login
+        return render_template('login.html',
+                form = form,
+                providers =  app.config['OPENID_PROVIDERS'])
+                
+@oid.after_login
+def after_login(resp):    #resp is the response sent by the oid.try_login 
+        if resp.email is None or resp.email == "":
+                flash('Invalid login. Please try again.')
+                return redirect(url_for('login'))
+        user = User.query.filter_by(email = resp.email).first()
+        if user is None:
+                name =  resp.name
+                if nickname is None or nickname == "":
+                        name = resp.email.split('@')[0]
+Sebastiani
+Commit changes
+
 		name =  resp.name
 		if nickname is None or nickname == "":
 			name = resp.email.split('@')[0]
@@ -54,3 +137,7 @@ def after_login(resp):    #resp is the response sent by the oid.try_login
 @lm.user_loader
 def load_user(id):
 	return User.query.get(int(id))
+	
+@app.before_request
+def before_request():
+	g.user =  current_user
